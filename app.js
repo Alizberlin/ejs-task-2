@@ -4,8 +4,16 @@ const env = require('dotenv').config();
 const path = require('path')
 const port = process.env.PORT || 3010;
 
+// import emailSender
+const emailSender = require('./models/emailSender');
+const register = require('./models/register');
 
-app.use(express.static(path.join(__dirname + '/public')))
+
+app.use(express.static(path.join(__dirname + '/public')));
+
+// add middleware to get the data using POST request
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 app.set('view engine', 'ejs');
 app.set('views', 'views')
@@ -19,6 +27,21 @@ app.get('/about', (req, res)=>{
 })
 app.get('/contact', (req, res)=>{
     res.render('contact')
+})
+app.post('/contact', (req, res)=>{
+    console.log(req.body);
+    emailSender.sendEmail(req.body, (data)=> {
+        req.json(data);
+    })
+})
+app.get('/register', (req, res)=>{
+    res.render('register')
+})
+app.post('/register', (req, res)=>{
+    console.log(req.body);
+    register.register(req.body, (data)=> {
+        req.json(data);
+    })
 })
 app.get('/photo-detail', (req, res)=>{
     res.render('photo-detail')

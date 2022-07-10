@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog-Z Register page</title>
+    <%- include('partials/cssLinks')%>
+<!--
+    
+TemplateMo 556 Catalog-Z
+
+https://templatemo.com/tm-556-catalog-z
+
+-->
+</head>
+<body>
+    <!-- Page Loader -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div>
+    
+    <%-include('partials/navbar', {url: 'register'})%>
+
+
+    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpg"></div>
+
+    <div class="container-fluid tm-mt-60">
+        <div class="row tm-mb-50">
+
+<!-- Submit starts here -->
+
+            <div class="col-lg-4 col-2 mb-5">
+                <h2 class="tm-text-primary mb-5">Register Page</h2>
+                <form id="contact-form" action="" method="POST" class="tm-contact-form mx-auto">
+                    <div class="form-group">
+                        <input id="register-name-input" type="text" name="name" class="form-control rounded-0" placeholder="Name" required />
+                    </div>
+                    <div class="form-group">
+                        <input id="register-email-input" type="email" name="email" class="form-control rounded-0" placeholder="Email" required />
+                    </div>
+                    <div class="form-group">
+                        <input id="register-password-input" type="password" name="password" class="form-control rounded-0" placeholder="Password" required />
+                    </div>
+                    <div class="form-group">
+                        <input id="register-repassword-input" type="password" name="repassword" class="form-control rounded-0" placeholder="RePassword" required />
+                    </div>
+                    
+
+                    <div class="form-group tm-text-right">
+                        <button id="register-submit-button" type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                </form>                
+            </div>
+
+<!-- Submit ends here -->
+
+
+
+
+            
+        </div>
+
+
+        
+    </div> <!-- container-fluid, tm-container-content -->
+
+    
+    <%-include('partials/footer')%>
+
+    
+    <script src="js/plugins.js"></script>
+    <script>
+        $(window).on("load", function() {
+            $('body').addClass('loaded');
+        });
+        const nameInput = document.querySelector('#register-name-input');
+        const emailInput = document.querySelector('#register-email-input');
+        const submitButton = document.querySelector('#register-submit-button');
+        const passwordInput = document.querySelector('#register-password-input');
+        const rePasswordInput = document.querySelector('#register-repassword-input');
+        
+        // add click event to submit button
+        submitButton.addEventListener('click', e => {
+            // to prevent the page to be reloaded on button click
+            e.preventDefault();
+            const data = {
+                name: nameInput.value,
+                email: emailInput.value,
+                password: passwordInput.value,
+                rePassword: rePasswordInput.value,
+            }
+async function myFun() {
+                try{
+                    const response = await fetch('/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    const answer = await response.json()
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            myFun()
+        })
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+>> § npm i nodemailer // to install nodemailer
